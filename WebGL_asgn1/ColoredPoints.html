@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Change a point color</title>
+  </head>
+
+  <body onload="main()">
+    <canvas id="webgl" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+    <br>
+    <input type="range" min="0" max = "100" class="slider" id="redSlide" value="50"> Red
+    <br>
+    <input type="range" min="0" max = "100" class="slider" id="greenSlide" value="50"> Green
+    <br>
+    <input type="range" min="0" max = "100" class="slider" id="blueSlide" value="50"> Blue
+    <br>
+    <input type="range" min="0" max = "100" class="slider" id="alphaSlide" value="100"> Alpha
+    <br>
+    <input type="range" min="2.0" max = "80.0" class="slider" id="sizeSlide" value="30"> Size
+    <br>
+    <input type="button" id="clearButton" value="♻️ Clear">
+    <br>
+    Brush Shape:  
+    <button type="button" id="pointButton">Point</button>
+    <button type="button" id="triangleButton">Triangle</button>
+    <button type="button" id="circleButton">Circle</button>
+    <br>
+    <button type="button" id="drawPikachu">I choose you! Pikachu!</button>
+    <br>
+    <br>
+     Custom Triangle:   <button type="button" id="drawCustomTri">Draw Triangle</button>
+     <br> point 1  
+    <label for="x1_coord">x:</label>
+    <input type="number" id="x1_coord" name="x1_coord" min="-1.0" max="1.0" step="0.1">
+
+    <label for="y1_coord">y:</label>
+    <input type="number" id="y1_coord" name="y1_coord" min="-1.0" max="1.0" step="0.1">
+    <br>
+    point 2  
+    <label for="x2_coord">x:</label>
+    <input type="number" id="x2_coord" name="x2_coord" min="-1.0" max="1.0" step="0.1">
+
+    <label for="y2_coord">y:</label>
+    <input type="number" id="y2_coord" name="y2_coord" min="-1.0" max="1.0" step="0.1">
+    <br>
+    point 3  
+    <label for="x3_coord">x:</label>
+    <input type="number" id="x3_coord" name="x3_coord" min="-1.0" max="1.0" step="0.1">
+
+    <label for="y3_coord">y:</label>
+    <input type="number" id="y3_coord" name="y3_coord" min="-1.0" max="1.0" step="0.1">
+    <br>
+    
+
+    <img src="pikachu.jpeg" width = 80%>
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="Triangles.js"></script>
+    <script src="Circles.js"></script>
+    <script src="Points.js"></script>
+    <script src="ColoredPoints.js"></script>
+  </body>
+</html>
