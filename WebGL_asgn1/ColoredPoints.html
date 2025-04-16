@@ -10,6 +10,11 @@
     Please use a browser that supports "canvas"
     </canvas>
     <br>
+    Brush Shape:  
+    <button type="button" id="pointButton">Point</button>
+    <button type="button" id="triangleButton">Triangle</button>
+    <button type="button" id="circleButton">Circle</button>
+    <br>
     <input type="range" min="0" max = "100" class="slider" id="redSlide" value="50"> Red
     <br>
     <input type="range" min="0" max = "100" class="slider" id="greenSlide" value="50"> Green
@@ -23,14 +28,7 @@
     <input type="range" min="5" max = "20" class="slider" id="segSlide" value="10"> Circle Segments
     <br>
     <input type="button" id="clearButton" value="♻️ Clear">
-    <br>
-    Brush Shape:  
-    <button type="button" id="pointButton">Point</button>
-    <button type="button" id="triangleButton">Triangle</button>
-    <button type="button" id="circleButton">Circle</button>
-    <br>
     <button type="button" id="drawPikachu">I choose you! Pikachu!</button>
-    <br>
     <br>
      Custom Triangle:   <button type="button" id="drawCustomTri">Draw Triangle</button>
      <br> point 1  
@@ -53,6 +51,10 @@
 
     <label for="y3_coord">y:</label>
     <input type="number" id="y3_coord" name="y3_coord" min="-1.0" max="1.0" step="0.1">
+    <br>
+    <p>^ This is my awesomeness feature which draws a triangle based on custom coords rather than 
+    just a right triangle where clicked. It uses the current color that has been picked in the sliders
+    and it calls a custom function I added to the Triangle class.</p>
     <br>
     
 
