@@ -74,6 +74,7 @@ const CIRCLE = 2;
 let g_selectedColor = [0.5, 0.5, 0.5, 1.0]
 let g_selectedSize = 30.0;
 let g_selectedType = POINT;
+let g_selectedSegs = 10;
 
 function addActionsForHtmlUI(){
   // brush stamp shape button events
@@ -88,6 +89,8 @@ function addActionsForHtmlUI(){
   document.getElementById('alphaSlide').addEventListener('mouseup', function() {g_selectedColor[3] = this.value/100;});
   // size slider events
   document.getElementById('sizeSlide').addEventListener('mouseup',  function() {g_selectedSize = this.value;});
+  document.getElementById('segSlide').addEventListener('mouseup',  function() {g_selectedSegs = this.value;});
+  
   // make clear button delete all the shapes from world state
   document.getElementById(`clearButton`).onclick = function() {g_shapesList=[]; renderAllShapes(); };
   document.getElementById(`drawPikachu`).onclick = function() {renderAllShapes(); choosePikachu(); };
@@ -136,6 +139,9 @@ function click(ev) { //pass in event
   stamp.position = [x,y];
   stamp.color    = g_selectedColor.slice(); //slice makes a proper copy
   stamp.size     = g_selectedSize;
+  if(g_selectedType == CIRCLE){
+    stamp.segments = g_selectedSegs;
+  }
   console.log("stamp bef push");
   console.log(stamp);
   g_shapesList.push(stamp);
