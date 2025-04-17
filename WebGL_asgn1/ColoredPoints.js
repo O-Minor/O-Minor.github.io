@@ -30,12 +30,14 @@ function setupWebGL(){
   canvas = document.getElementById('webgl');
 
   // Get the rendering context for WebGL
-  gl = getWebGLContext(canvas);
-  // gl = getWebGLContext("webgl", { preserveDrawingBuffer: true});
+  //gl = getWebGLContext(canvas);
+  gl = canvas.getContext('webgl', { preserveDrawingBuffer: true});
   if (!gl) {
     console.log('Failed to get the rendering context for WebGL');
     return;
   }
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 }
 
 function connectVariablesToGLSL(){
