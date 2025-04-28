@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Change a point color</title>
+  </head>
+
+  <body onload="main()">
+    <canvas id="webgl" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+    <p id = "numdot">XXXX</p>
+    Animation:
+    <button type = "button" id ="firstAnimationOn">ON</button>
+    <button type = "button" id ="firstAnimationOff">OFF</button>
+    <br>
+    <input type="range" min="-90" max = "180" value = "5" class="slider" id="angleSlide"> Camera Angle
+    <br>
+    <input type="range" min="-80" max = "80" class="slider" id="HeadSlide" value="0"> HeadSlide
+    <br>
+    <input type="range" min="-80" max = "80" class="slider" id="ArmsSlide" value="0"> Upper Legs Slide
+    <br>
+    <input type="range" min="-80" max = "80" class="slider" id="HandsSlide" value="0"> Lower Legs Slide
+    <br>
+    <input type="range" min="-80" max = "80" class="slider" id="LeftArmSlide" value="0"> Front Upper Leg
+    <br>
+    <input type="range" min="-80" max = "80" class="slider" id="LeftHandSlide" value="0"> Front Lower Leg
+    <br>
+    <input type="range" min="-80" max = "80" class="slider" id="RightArmSlide" value="0"> Back Upper Leg
+    <br>
+    <input type="range" min="-50" max = "50" class="slider" id="RightHandSlide" value="0"> Back Lower Leg
+    <br>
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/cuon-matrix.js"></script>
+    <script src="Triangles.js"></script>
+    <script src="Circles.js"></script>
+    <script src="Cubes.js"></script>
+    <script src="Points.js"></script>
+    <script src="BlockyAnimal.js"></script>
+  </body>
+</html>
