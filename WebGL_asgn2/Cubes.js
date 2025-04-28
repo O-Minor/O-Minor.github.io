@@ -43,7 +43,7 @@ class Cube{
             1.0, 1.0, 0.0]);
         // other sides of cube
         gl.uniform4f(u_FragColor, rgba[0]*0.5, rgba[1]*0.5, rgba[2]*0.5, rgba[3]);
-        shadow = 0.1;
+        shadow = 0.15;
         gl.uniform4f(u_FragColor, rgba[0]*shadow, rgba[1]*shadow, rgba[2]*shadow, rgba[3]);
         // // opposite face 6
         drawTriangle3D([
