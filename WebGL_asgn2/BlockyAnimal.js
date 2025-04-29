@@ -122,8 +122,8 @@ function addActionsForHtmlUI(){
   document.getElementById('RightArmSlide').addEventListener('mousemove',   function() {g_rightArmAngle = this.value;});
   document.getElementById('RightHandSlide').addEventListener('mousemove',   function() {g_rightHandAngle = 1*this.value;});
   // dual
-  document.getElementById('ArmsSlide').addEventListener('mousemove',   function() {g_rightArmAngle = 1*this.value; g_leftArmAngle = this.value;  renderScene();});
-  document.getElementById('HandsSlide').addEventListener('mousemove',   function() {g_rightHandAngle = 1*this.value; g_leftHandAngle = 1*this.value; renderScene();});
+  document.getElementById('ArmsSlide').addEventListener('mousemove',   function() {g_rightArmAngle = 1*this.value; g_leftArmAngle = this.value; });
+  document.getElementById('HandsSlide').addEventListener('mousemove',   function() {g_rightHandAngle = 1*this.value; g_leftHandAngle = 1*this.value;});
 
 }
 
@@ -146,7 +146,8 @@ function click(ev) { //pass in event
   console.log([x,y]);
   // html actions line for refference
   // document.getElementById('angleSlide').addEventListener('mousemove',   function() {g_globalAngle = this.value; renderAllShapes(); });
-  document.getElementById('webgl').addEventListener('mousemove',   function() {g_globalAngle = x*-80; });
+  document.getElementById('webgl').addEventListener('mousemove',   function() {g_globalAngle = x*-80; } );
+  
 }
 function main() {
   setupWebGL();
