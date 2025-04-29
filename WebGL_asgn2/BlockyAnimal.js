@@ -127,7 +127,7 @@ function addActionsForHtmlUI(){
 
 var g_secondAnimation = false;
 
-function click(ev) { //pass in event
+function shiftClick(ev) { //pass in event
   console.error(`anim bool is: ${g_secondAnimation}`);
   //log.textContent = `In click. anim bool is: ${g_secondAnimation}`;
   if (!g_secondAnimation){
@@ -137,6 +137,12 @@ function click(ev) { //pass in event
   }
 }
 
+function click(ev) { //pass in event
+  console.log("in click");
+  // Extract the event click and return it in WebGL coordinates
+  [x,y] = convertCoords(ev);
+  console.log([x,y]);
+}
 function main() {
   setupWebGL();
   connectVariablesToGLSL();
@@ -145,8 +151,8 @@ function main() {
   addActionsForHtmlUI();
 
   // Register function (event handler) to be called on a mouse press
-  // canvas.onmousedown = click;
-  // canvas.onmousemove = function(ev) { if(ev.buttons == 1) { click(ev) } };
+  canvas.onmousedown = click;
+  canvas.onmousemove = function(ev) { if(ev.buttons == 1) { click(ev) } };
 
   // SHIFT SANDBOX
   let log = document.querySelector("#log");
@@ -157,7 +163,7 @@ function main() {
       //canvas.onmousedown = click;
       //canvas.onmousemove = function(ev) { if(ev.buttons == 1) { click(ev) } };
   }
-  canvas.onmousedown = function(ev) { if(ev.shiftKey) { click(ev) } };
+  canvas.onmousedown = function(ev) { if(ev.shiftKey) { shiftClick(ev); } };
   // END SHIFT SANDBOX
 
   // Specify the color for clearing <canvas>
