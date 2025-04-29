@@ -189,6 +189,7 @@ function tick(){
   g_seconds = performance.now()/1000.0-g_startTime;
   console.log(g_seconds);
   //console.log(performance.now());
+  updateAnimationAngles();
   renderScene();
   requestAnimationFrame(tick);
 }
@@ -203,7 +204,55 @@ function convertCoords(ev){
   return [x,y];
 }
 
+// r for realtime
+// cockpit
+var r_headAngle;
+var r_neckAngle;
+// left leg
+var r_larmAngle;
+var r_lhandAngle;
+var r_lstompAngle;
+// right leg
+var r_rarmAngle;
+var r_rhandAngle;
+var r_rstompAngle;
+
+function updateAnimationAngles(){
+  //console.error("angles updated");
+  // cockpit angle options
+  if (g_secondAnimation){
+    // get maths
+    r_neckAngle = 15*Math.sin(g_seconds);
+    r_headAngle = -13*Math.sin(g_seconds);
+  } else{
+    // get sliders
+    r_neckAngle = g_headAngle; // slider id wasnt renamed
+    r_headAngle = 0;
+  }
+
+  // legs angle options
+  if (g_firstAnimation){
+    // get maths
+    r_larmAngle = 15*Math.sin(g_seconds);
+    r_rarmAngle = 15*Math.sin(g_seconds+20);
+    r_lhandAngle = 9*Math.sin(g_seconds+20);
+    r_rhandAngle = -9*Math.sin(g_seconds);
+
+  } else{
+    // get sliders
+    r_larmAngle = g_leftArmAngle;
+    r_rarmAngle = g_rightArmAngle;
+    r_lhandAngle = g_leftHandAngle;
+    r_rhandAngle = g_rightHandAngle;
+  }
+  
+  // stomps were too complicated to 
+  // move into this function with the
+  // time i had
+}
+
 function renderScene(){
+  updateAnimationAngles();
   var startTime = performance.now();
   var duration;
 
@@ -234,11 +283,13 @@ function renderScene(){
   // are in the wrong order for making this a parent
   neck.color = [0.6, 0.6, 0.7, 1];
   neck.matrix.translate(0.1,0.3,0.301,0.001);
-  if (g_secondAnimation){
-    neck.matrix.rotate(15*Math.sin(g_seconds),0,1,0);
-  }else{
-    neck.matrix.rotate(g_headAngle,0,1,0);
-  }
+  // if (g_secondAnimation){
+  //   neck.matrix.rotate(15*Math.sin(g_seconds),0,1,0);
+  // }else{
+  //   neck.matrix.rotate(g_headAngle,0,1,0);
+  // }
+  //console.error(r_neckAngle);
+  neck.matrix.rotate(r_neckAngle,0,1,0);
   neck.matrix.rotate(-180,0,0,1);
   var neckCoordsMat = new Matrix4 (neck.matrix);
   neck.matrix.scale(0.55,0.2,0.2);
@@ -249,9 +300,12 @@ function renderScene(){
   // if you make this into a neck then these transforms
   // are in the wrong order for making this a parent
   head.color = [0.6, 0.6, 0.7, 1];
-  if (g_secondAnimation){
-    head.matrix.rotate(-13*Math.sin(g_seconds),0,1,0);
-  }
+  // if (g_secondAnimation){
+  //   head.matrix.rotate(-13*Math.sin(g_seconds),0,1,0);
+  // }
+  // head has no slider of its own
+  //console.error(r_headAngle);
+  head.matrix.rotate(r_headAngle,0,1,0);
   head.matrix.rotate(-180,0,0,1);
   head.matrix.translate(-0.7,-0.25,-0.151,0.001);
   head.matrix.scale(0.4,0.3,0.4);
@@ -265,12 +319,12 @@ function renderScene(){
   leftArm.matrix.setTranslate(-0.1, -0.8, 0.0); // ask what dif febwtween setTrasn and
   leftArm.matrix.rotate(180,0,0,1);
   leftArm.matrix.translate(-0.05,-0.901,0.001);
-  if (g_firstAnimation){
-    leftArm.matrix.rotate(15*Math.sin(g_seconds), 0, 0, 1);
-  }else{
-    leftArm.matrix.rotate(g_leftArmAngle, 0, 0, 1);
-  }
-  // leftArm.matrix.rotate(g_leftArmAngle, 0, 0, 1);
+  // if (g_firstAnimation){
+  //   leftArm.matrix.rotate(15*Math.sin(g_seconds), 0, 0, 1);
+  // }else{
+  //   leftArm.matrix.rotate(g_leftArmAngle, 0, 0, 1);
+  // }
+  leftArm.matrix.rotate(r_larmAngle, 0, 0, 1);
   var leftArmCoordsMat = new Matrix4(leftArm.matrix);
   // setting the shape of the box SCALES
   leftArm.matrix.scale(0.2, 0.5, 0.2);
@@ -284,11 +338,12 @@ function renderScene(){
   rightArm.matrix.setTranslate(0.5, -0.8, 0.0); // ask what dif febwtween setTrasn and
   rightArm.matrix.rotate(180,0,0,1);
   rightArm.matrix.translate(-0.05,-0.901,0.001);
-  if (g_firstAnimation){
-    rightArm.matrix.rotate(15*Math.sin(g_seconds+20), 0, 0, 1);
-  }else{
-    rightArm.matrix.rotate(g_rightArmAngle, 0, 0, 1);
-  }
+  // if (g_firstAnimation){
+  //   rightArm.matrix.rotate(15*Math.sin(g_seconds+20), 0, 0, 1);
+  // }else{
+  //   rightArm.matrix.rotate(g_rightArmAngle, 0, 0, 1);
+  // }
+  rightArm.matrix.rotate(r_rarmAngle, 0, 0, 1);
   var rightArmCoordsMat = new Matrix4(rightArm.matrix);
   // setting the shape of the box SCALES
   rightArm.matrix.scale(0.2, 0.5, 0.2);
@@ -298,12 +353,12 @@ function renderScene(){
   leftHand.color = [0.6, 0.6, 0.7, 1];
   //leftHand.matrix = leftArmCoordsMat;
   leftHand.matrix.translate(0.001, 0.44, -0.0001, 0);
-  if (g_firstAnimation){
-    leftHand.matrix.rotate(9*Math.sin(g_seconds+20), 0, 0, 1);
-  }else{
-    leftHand.matrix.rotate(g_leftHandAngle, 0, 0, 1);
-  }
-  //leftHand.matrix.rotate(g_leftHandAngle-9,0,0,1);
+  // if (g_firstAnimation){
+  //   leftHand.matrix.rotate(9*Math.sin(g_seconds+20), 0, 0, 1);
+  // }else{
+  //   leftHand.matrix.rotate(g_leftHandAngle, 0, 0, 1);
+  // }
+  leftHand.matrix.rotate(r_lhandAngle,0,0,1);
   var leftHandCoordsMat = new Matrix4(leftHand.matrix);
   leftHand.matrix.scale(0.18,0.5,0.2);
   leftHand.render();
@@ -317,7 +372,7 @@ function renderScene(){
   }else{
     rightHand.matrix.rotate(g_rightHandAngle, 0, 0, 1);
   }
-  //rightHand.matrix.rotate(g_rightHandAngle-9,0,0,1);
+  rightHand.matrix.rotate(r_rhandAngle,0,0,1);
   var rightHandCoordsMat = new Matrix4(rightHand.matrix);
   rightHand.matrix.scale(0.18,0.5,0.2);
   rightHand.render();
