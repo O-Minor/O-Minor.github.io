@@ -125,12 +125,27 @@ function addActionsForHtmlUI(){
 
 }
 
+g_secondAnimation = false;
+
+function click(ev) { //pass in event
+  console.log("in click");
+  if (g_secondAnimation){
+    g_secondAnimation = false;
+  }else{
+    g_secondAnimation = true;
+  }
+}
+
 function main() {
   setupWebGL();
   connectVariablesToGLSL();
 
   // set up actions from the html ui elements
   addActionsForHtmlUI();
+
+  // Register function (event handler) to be called on a mouse press
+  canvas.onmousedown = click;
+  canvas.onmousemove = function(ev) { if(ev.buttons == 1) { click(ev) } };
 
   // Specify the color for clearing <canvas>
   gl.clearColor(0.8, 0.9, 1.0, 1.0);
@@ -194,20 +209,26 @@ function renderAllShapes(){
   // if you make this into a neck then these transforms
   // are in the wrong order for making this a parent
   neck.color = [0.6, 0.6, 0.7, 1];
-  neck.matrix.rotate(g_headAngle,0,0,1);
+  if (g_secondAnimation){
+    neck.matrix.rotate(15*Math.sin(g_seconds),0,1,0);
+  }else{
+    neck.matrix.rotate(g_headAngle,0,1,0);
+  }
   neck.matrix.rotate(-180,0,0,1);
-  neck.matrix.translate(-0.15,-0.3,0.301,0.001);
+  neck.matrix.translate(-0.2,-0.3,0.301,0.001);
   var neckCoordsMat = new Matrix4 (neck.matrix);
-  neck.matrix.scale(0.5,0.2,0.2);
+  neck.matrix.scale(0.55,0.2,0.2);
   neck.render();
 
   var head = new Cube(neckCoordsMat);
   // if you make this into a neck then these transforms
   // are in the wrong order for making this a parent
   head.color = [0.6, 0.6, 0.7, 1];
-  head.matrix.rotate(g_headAngle,0,0,1);
+  if (g_secondAnimation){
+    head.matrix.rotate(-13*Math.sin(g_seconds),0,1,0);
+  }
   head.matrix.rotate(-180,0,0,1);
-  head.matrix.translate(-0.6,-0.25,-0.101,0.001);
+  head.matrix.translate(-0.7,-0.25,-0.201,0.001);
   head.matrix.scale(0.4,0.3,0.3);
   head.render();
 
@@ -288,7 +309,6 @@ function renderAllShapes(){
       rFlatAngle = 0;
     }
   }
-  
   rightStomp.matrix.translate(-0.1,0.4,-0.05);
   if (!g_firstAnimation){
     rightStomp.matrix.rotate(rFlatAngle,0,0,1);
@@ -309,7 +329,6 @@ function renderAllShapes(){
       lFlatAngle = 0;
     }
   }
-  
   leftStomp.matrix.translate(-0.1,0.4,-0.05);
   if (!g_firstAnimation){
     leftStomp.matrix.rotate(lFlatAngle,0,0,1);
