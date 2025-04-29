@@ -125,14 +125,15 @@ function addActionsForHtmlUI(){
 
 }
 
-g_secondAnimation = false;
+var g_secondAnimation = false;
 
 function click(ev) { //pass in event
-  console.log("in click");
-  if (g_secondAnimation){
-    g_secondAnimation = false;
-  }else{
+  console.error(`anim bool is: ${g_secondAnimation}`);
+  //log.textContent = `In click. anim bool is: ${g_secondAnimation}`;
+  if (!g_secondAnimation){
     g_secondAnimation = true;
+  }else{
+    g_secondAnimation = false;
   }
 }
 
@@ -144,8 +145,20 @@ function main() {
   addActionsForHtmlUI();
 
   // Register function (event handler) to be called on a mouse press
-  canvas.onmousedown = click;
-  canvas.onmousemove = function(ev) { if(ev.buttons == 1) { click(ev) } };
+  // canvas.onmousedown = click;
+  // canvas.onmousemove = function(ev) { if(ev.buttons == 1) { click(ev) } };
+
+  // SHIFT SANDBOX
+  let log = document.querySelector("#log");
+  document.addEventListener("click", logKey);
+
+  function logKey(ev) {
+    log.textContent = `The shift key is pressed: ${ev.shiftKey}`;
+      //canvas.onmousedown = click;
+      //canvas.onmousemove = function(ev) { if(ev.buttons == 1) { click(ev) } };
+  }
+  canvas.onmousedown = function(ev) { if(ev.shiftKey) { click(ev) } };
+  // END SHIFT SANDBOX
 
   // Specify the color for clearing <canvas>
   gl.clearColor(0.8, 0.9, 1.0, 1.0);
