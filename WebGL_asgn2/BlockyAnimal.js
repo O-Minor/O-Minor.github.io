@@ -146,7 +146,7 @@ function click(ev) { //pass in event
   console.log([x,y]);
   // html actions line for refference
   // document.getElementById('angleSlide').addEventListener('mousemove',   function() {g_globalAngle = this.value; renderAllShapes(); });
-  //document.getElementById('webgl').addEventListener('mousemove',   function() {g_globalAngle = x; renderAllShapes(); });
+  document.getElementById('webgl').addEventListener('mousemove',   function() {g_globalAngle = x*-80; });
 }
 function main() {
   setupWebGL();
