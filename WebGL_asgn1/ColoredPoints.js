@@ -94,9 +94,9 @@ function addActionsForHtmlUI(){
   document.getElementById('segSlide').addEventListener('mouseup',  function() {g_selectedSegs = this.value;});
   
   // make clear button delete all the shapes from world state
-  document.getElementById(`clearButton`).onclick = function() {g_shapesList=[]; renderAllShapes(); };
-  document.getElementById(`drawPikachu`).onclick = function() {renderAllShapes(); choosePikachu(); };
-  document.getElementById(`drawCustomTri`).onclick = function() {renderAllShapes(); customUITriangle(); };
+  document.getElementById(`clearButton`).onclick = function() {g_shapesList=[]; renderScene(); };
+  document.getElementById(`drawPikachu`).onclick = function() {renderScene(); choosePikachu(); };
+  document.getElementById(`drawCustomTri`).onclick = function() {renderScene(); customUITriangle(); };
 }
 
 function customUITriangle(){
@@ -148,7 +148,7 @@ function click(ev) { //pass in event
   console.log(stamp);
   g_shapesList.push(stamp);
   // draw everything
-  renderAllShapes();
+  renderScene();
 }
 function main() {
   setupWebGL();
@@ -233,7 +233,7 @@ function convertCoords(ev){
   return [x,y];
 }
 
-function renderAllShapes(){
+function renderScene(){
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT);
 

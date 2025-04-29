@@ -110,18 +110,20 @@ function addActionsForHtmlUI(){
 
   // camera
   //document.getElementById('angleSlide').addEventListener('mouseup',   function() {g_globalAngle = this.value; renderAllShapes(); });
-  document.getElementById('angleSlide').addEventListener('mousemove',   function() {g_globalAngle = this.value; renderAllShapes(); });
+  //document.getElementById('angleSlide').addEventListener('mousemove',   function() {g_globalAngle = this.value; renderScene(); });
+  document.getElementById('angleSlide').addEventListener('mousemove',   function() {g_globalAngle = this.value;});
+  
   // angle slider events
-  document.getElementById('HeadSlide').addEventListener('mousemove',   function() {g_headAngle = -1*this.value; renderAllShapes();});
+  document.getElementById('HeadSlide').addEventListener('mousemove',   function() {g_headAngle = -1*this.value;});
   // left
-  document.getElementById('LeftArmSlide').addEventListener('mousemove',   function() {g_leftArmAngle = this.value; renderAllShapes();});
-  document.getElementById('LeftHandSlide').addEventListener('mousemove',   function() {g_leftHandAngle = 1*this.value; renderAllShapes();});
+  document.getElementById('LeftArmSlide').addEventListener('mousemove',   function() {g_leftArmAngle = this.value;});
+  document.getElementById('LeftHandSlide').addEventListener('mousemove',   function() {g_leftHandAngle = 1*this.value;});
   // right
-  document.getElementById('RightArmSlide').addEventListener('mousemove',   function() {g_rightArmAngle = this.value; renderAllShapes();});
-  document.getElementById('RightHandSlide').addEventListener('mousemove',   function() {g_rightHandAngle = 1*this.value; renderAllShapes();});
+  document.getElementById('RightArmSlide').addEventListener('mousemove',   function() {g_rightArmAngle = this.value;});
+  document.getElementById('RightHandSlide').addEventListener('mousemove',   function() {g_rightHandAngle = 1*this.value;});
   // dual
-  document.getElementById('ArmsSlide').addEventListener('mousemove',   function() {g_rightArmAngle = 1*this.value; g_leftArmAngle = this.value;  renderAllShapes();});
-  document.getElementById('HandsSlide').addEventListener('mousemove',   function() {g_rightHandAngle = 1*this.value; g_leftHandAngle = 1*this.value; renderAllShapes();});
+  document.getElementById('ArmsSlide').addEventListener('mousemove',   function() {g_rightArmAngle = 1*this.value; g_leftArmAngle = this.value;  renderScene();});
+  document.getElementById('HandsSlide').addEventListener('mousemove',   function() {g_rightHandAngle = 1*this.value; g_leftHandAngle = 1*this.value; renderScene();});
 
 }
 
@@ -142,6 +144,9 @@ function click(ev) { //pass in event
   // Extract the event click and return it in WebGL coordinates
   [x,y] = convertCoords(ev);
   console.log([x,y]);
+  // html actions line for refference
+  // document.getElementById('angleSlide').addEventListener('mousemove',   function() {g_globalAngle = this.value; renderAllShapes(); });
+  //document.getElementById('webgl').addEventListener('mousemove',   function() {g_globalAngle = x; renderAllShapes(); });
 }
 function main() {
   setupWebGL();
@@ -183,8 +188,8 @@ var g_seconds = performance.now()/1000.0-g_startTime;
 function tick(){
   g_seconds = performance.now()/1000.0-g_startTime;
   console.log(g_seconds);
-  console.log(performance.now());
-  renderAllShapes();
+  //console.log(performance.now());
+  renderScene();
   requestAnimationFrame(tick);
 }
 
@@ -198,7 +203,7 @@ function convertCoords(ev){
   return [x,y];
 }
 
-function renderAllShapes(){
+function renderScene(){
   var startTime = performance.now();
   var duration;
 
@@ -228,17 +233,18 @@ function renderAllShapes(){
   // if you make this into a neck then these transforms
   // are in the wrong order for making this a parent
   neck.color = [0.6, 0.6, 0.7, 1];
+  neck.matrix.translate(0.1,0.3,0.301,0.001);
   if (g_secondAnimation){
     neck.matrix.rotate(15*Math.sin(g_seconds),0,1,0);
   }else{
     neck.matrix.rotate(g_headAngle,0,1,0);
   }
   neck.matrix.rotate(-180,0,0,1);
-  neck.matrix.translate(-0.2,-0.3,0.301,0.001);
   var neckCoordsMat = new Matrix4 (neck.matrix);
   neck.matrix.scale(0.55,0.2,0.2);
   neck.render();
 
+  //g_globalAngle = -77;
   var head = new Cube(neckCoordsMat);
   // if you make this into a neck then these transforms
   // are in the wrong order for making this a parent
@@ -247,8 +253,8 @@ function renderAllShapes(){
     head.matrix.rotate(-13*Math.sin(g_seconds),0,1,0);
   }
   head.matrix.rotate(-180,0,0,1);
-  head.matrix.translate(-0.7,-0.25,-0.201,0.001);
-  head.matrix.scale(0.4,0.3,0.3);
+  head.matrix.translate(-0.7,-0.25,-0.151,0.001);
+  head.matrix.scale(0.4,0.3,0.4);
   head.render();
 
   // draw left arm
